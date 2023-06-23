@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ComputersForOrderController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +40,17 @@ Route::prefix("carts") -> group( function () {
     Route::post("add", [CartController::class, "addInCart"]);
     Route::get("show", [CartController::class, "showCart"]);
 });
+
+// Роуты компов для заказов
+Route::prefix("comps_order") -> group( function () {
+    Route::post("add", [ComputersForOrderController::class, "addComputerForOrder"]);
+    Route::get("show", [ComputersForOrderController::class, "showCart"]);
+});
+
+// Роуты заказов
+Route::prefix("orders") -> group( function () {
+    Route::post("add", [OrderController::class, "addOrder"]);
+    Route::get("show", [ComputersForOrderController::class, "showCart"]);
+});
+
 

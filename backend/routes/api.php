@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,17 @@ Route::prefix("users") -> group( function () {
     Route::post("login", [UserController::class, "login"]);
     Route::post("registration", [UserController::class, "registration"]);
 });
+
+
+// Роуты компьютера
+Route::prefix("computers") -> group( function () {
+    Route::post("add", [ComputerController::class, "ComputerAdd"]);
+    Route::get("show", [ComputerController::class, "ComputerShow"]);
+});
+
+// Роуты Корзины
+Route::prefix("carts") -> group( function () {
+    Route::post("add", [CartController::class, "addInCart"]);
+    Route::get("show", [CartController::class, "showCart"]);
+});
+

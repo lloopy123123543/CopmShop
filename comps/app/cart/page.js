@@ -1,28 +1,52 @@
-"use client";
-import { useEffect, useState } from "react";
-import React from "react";
+"use client"
+import React, { useEffect, useRef, useState } from 'react'
 
-export default function shop() {
-  const [Computer, setComputer] = useState([]);
+export default function cart() {
+    const [Cart, setCart] = useState([])
+    const ADRES = useRef()
+    useEffect(() => {
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/computers/show", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setComputer(data);
-        console.log(data);
+        fetch('http://localhost:8000/api/carts/show',{
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data.length)
+            setCart(data)
+          })
+          .catch(error => console.log('Failed: ' + error.message));
+
+
+    }, [])
+
+    function order(){
+      fetch('http://localhost:8000/api/carts/show',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
       })
-      .catch((error) => console.log("Failed: " + error.message));
-  }, []);
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.length)
+        setCart(data)
+      })
+      .catch(error => console.log('Failed: ' + error.message));
+
+    }
+      
+
+
 
   return (
+    <div>
     <div className="container w-full mx-auto grid grid-cols-3 gap-10">
-      {Computer ? Computer.map((comp) => {
+      {!!Cart ? Cart.map((comp) => {
         return (
           <div className="" key={comp.id}>
             <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -64,16 +88,18 @@ export default function shop() {
                     Стоимость: {comp.price} рублей
                 </p>
               </div>
-              <div className="px-6 pt-4 pb-2">
-                <button id={comp.id} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-700 hover:text-white">
-                  Добавить в корзину
-                </button>
-   
-              </div>
             </div>
           </div>
         );
-      }): <div>Loading...</div>}
+      }): <div>Loading</div>}
     </div>
-  );
+    <div className="w-full container mx-auto flex items-center justify-center mt-10">
+      <form className="flex gap-10">
+        <label>Адрес</label>
+        <input ref={ADRES} className="border"></input>
+      <button className="bg-indigo-500 px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Заказать все</button>
+      </form>
+    </div>
+    </div>
+  )
 }

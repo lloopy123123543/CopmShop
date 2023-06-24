@@ -30,7 +30,7 @@ class OrderController extends BaseController
                     $order = new Orders();
                     $order -> user_id = $user_id;
                     $order -> adres = $request -> input("adres");
-                    $order -> delivery = $request -> input("delivery");
+                    $order -> delivery = 1;
                     $order -> save();
 
                     return response() -> json("success");

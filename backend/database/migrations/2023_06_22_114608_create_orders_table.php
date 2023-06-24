@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('user_id') -> constrained("users");
             $table->string('adres');
             $table->integer('delivery');
-            $table->bigInteger('total_price');
             // $table->foreignId('comps_order_id') -> constrained("comps_in_orders");
 
 

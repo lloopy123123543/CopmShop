@@ -50,7 +50,7 @@ Route::prefix("comps_order") -> group( function () {
 // Роуты заказов
 Route::prefix("orders") -> group( function () {
     Route::post("add", [OrderController::class, "addOrder"]);
-    Route::get("show", [ComputersForOrderController::class, "showCart"]);
+    Route::get("show", [OrderController::class, "showOrder"]);
 });
 
 

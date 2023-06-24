@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use App\Models\Comps_in_order;
+use App\Models\Computers;
+
 class OrderController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -29,13 +31,45 @@ class OrderController extends BaseController
                     $order -> user_id = $user_id;
                     $order -> adres = $request -> input("adres");
                     $order -> delivery = $request -> input("delivery");
-                    return response()-> json($comps);
-                    // $order -> total_price =
-                    // $order -> save();
+                    $order -> save();
+
                     return response() -> json("success");
                 }else{return response()->json("user not found");}
             }else{return response()->json("token is empty");}
         }
 
+    }
+    public function showOrder(Request $request)
+    {
+        $bearer = $request->header("authorization");
+        if (!$bearer) {
+            return response()->json("Token is empty");
+        }
+
+        $token = explode(" ", $bearer)[1];
+        $user = User::where("token", $token)->first();
+        if (!$user) {
+            return response()->json("User not found");
+        }
+
+        $order = Orders::where("user_id", $user->id)->first();
+        if (!$order) {
+            return response()->json("Order not found for user");
+        }
+
+        $comp_ids = Comps_in_order::where("order_id", $order->id)->pluck("computer_id");
+        $computers = Computers::whereIn("id", $comp_ids)->get();
+        $total_price = 0;
+        foreach($computers as $computer){
+            $total_price += $computer -> price;
+        }
+
+
+        return response()->json([
+            "adres" => $order->adres,
+            "delivery" => $order->delivery,
+            "computers" => $computers,
+            "total_price" => $total_price
+        ]);
     }
 }

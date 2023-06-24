@@ -22,9 +22,8 @@ class ComputersForOrderController extends BaseController
 
             if ($bearer != '') {
                 if ($user != null) {
-                    $user_id = $user -> id;
                     $cart = new Comps_in_order();
-                    $cart -> user_id = $user_id;
+                    $cart -> order_id = $request -> input("order_id");
                     $cart -> computer_id = $request -> input("computer_id");
                     $cart -> save();
                     return response() -> json("success");

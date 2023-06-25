@@ -104,7 +104,7 @@ export default function cart() {
   return (
     <div>
             <div className="container w-full mx-auto text-center my-10 font-bold text-indigo-500 text-2xl">Корзина</div>
-    <div className="container w-full mx-auto grid grid-cols-3 gap-10">
+    <div className="container w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {!!Cart && Cart.map((comp) => {
         return (
           <div className="" key={comp.id} id={comp.id}>
@@ -155,7 +155,7 @@ export default function cart() {
       })}
     </div>
     <div className="w-full container mx-auto flex items-center justify-center mt-10">
-      <form className="flex gap-10">
+      <form className="grid gap-10">
         <label>Адрес</label>
         <input ref={ADRES} className="border"></input>
       <div onClick={order} className="bg-indigo-500 px-3 py-1 rounded cursor-pointer text-white hover:bg-indigo-300 hover:text-black">Заказать все</div>

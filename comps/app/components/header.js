@@ -46,7 +46,7 @@ export default function HEADER() {
 
                     </ul>
                     <div className=" flex space-x-5 justify-center items-center pl-2">
-                        <button>Корзина</button>
+                        <Link href={"/cart"}><button>Корзина</button></Link>
                     </div>
                 </nav>
                 {/* for smaller devcies */}

@@ -43,10 +43,11 @@ export default function shop() {
       .catch((error) => console.log("Failed: " + error.message));
 
   }
+
   return (
     <div>
       <div className="container w-full mx-auto text-center my-10 font-bold text-indigo-500 text-2xl">Ассортимент компьютеров</div>
-          <div className="container w-full mx-auto grid grid-cols-3 gap-10">
+          <div className="container w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {!!Computer ? Computer.map((comp) => {
         return (
           <div className="" key={comp.id} >

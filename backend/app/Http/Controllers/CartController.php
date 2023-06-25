@@ -17,7 +17,7 @@ class CartController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
-    public function addInCart(Request $request){
+    public function addInCart(Request $request, $id){
         {
             $bearer = $request->header("authorization");
             $token = explode(" ", $bearer)[1];
@@ -28,7 +28,7 @@ class CartController extends BaseController
                     $user_id = $user -> id;
                     $cart = new Cart();
                     $cart -> user_id = $user_id;
-                    $cart -> computer_id = $request -> input("computer_id");
+                    $cart -> computer_id = $id;
                     $cart -> save();
                     return response() -> json("success");
                 }else{return response()->json("user not found");}

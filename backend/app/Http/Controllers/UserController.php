@@ -16,10 +16,10 @@ class UserController extends BaseController
     public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "login" => "required|string|min:4",
-            "email" => "required|string|email",
-            "password" => "required|string|min:4",
-            "phone" => "required|string|min:11",
+            "login" => "required|string",
+            "email" => "required|string",
+            "password" => "required|string",
+            "phone" => "required|string",
         ]);
         if ($validator->fails()) {
             return response()->json([

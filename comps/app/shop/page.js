@@ -20,11 +20,36 @@ export default function shop() {
       .catch((error) => console.log("Failed: " + error.message));
   }, []);
 
+  function buy(e){
+    let sus = document.getElementById(e.target.id)
+    const idishnik = Number(e.target.id)
+    sus.style.backgroundColor = "green";
+    sus.style.color = "white";
+    sus.innerHTML = "Добавлено"
+
+    console.log(idishnik)
+
+    fetch(`http://localhost:8000/api/carts/add/${idishnik}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+
+      })
+      .catch((error) => console.log("Failed: " + error.message));
+
+  }
   return (
-    <div className="container w-full mx-auto grid grid-cols-3 gap-10">
-      {Computer ? Computer.map((comp) => {
+    <div>
+      <div className="container w-full mx-auto text-center my-10 font-bold text-indigo-500 text-2xl">Ассортимент компьютеров</div>
+          <div className="container w-full mx-auto grid grid-cols-3 gap-10">
+      {!!Computer ? Computer.map((comp) => {
         return (
-          <div className="" key={comp.id}>
+          <div className="" key={comp.id} >
             <div className="max-w-sm rounded overflow-hidden shadow-lg">
               {/* <img
                 className="w-full"
@@ -65,7 +90,7 @@ export default function shop() {
                 </p>
               </div>
               <div className="px-6 pt-4 pb-2">
-                <button id={comp.id} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-700 hover:text-white">
+                <button onClick={buy} id={comp.id} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-700 hover:text-white">
                   Добавить в корзину
                 </button>
    
@@ -74,6 +99,7 @@ export default function shop() {
           </div>
         );
       }): <div>Loading...</div>}
+    </div>
     </div>
   );
 }

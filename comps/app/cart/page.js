@@ -103,8 +103,9 @@ export default function cart() {
 
   return (
     <div>
+            <div className="container w-full mx-auto text-center my-10 font-bold text-indigo-500 text-2xl">Корзина</div>
     <div className="container w-full mx-auto grid grid-cols-3 gap-10">
-      {!!Cart ? Cart.map((comp) => {
+      {!!Cart && Cart.map((comp) => {
         return (
           <div className="" key={comp.id} id={comp.id}>
             <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -145,13 +146,13 @@ export default function cart() {
                 <p className="text-gray-700 text-base">
                     Стоимость: {comp.price} рублей
                 </p>
-                <div onClick={deleteCart} id={comp.id} className="bg-indigo-500 text-center mt-3 cursor-pointer px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Удалить</div>
+                <div onClick={deleteCart} id={comp.id} className="bg-indigo-500 text-center mt-3 cursor-pointer px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Удалить из корзины</div>
               </div>
 
             </div>
           </div>
         );
-      }): <div>Loading</div>}
+      })}
     </div>
     <div className="w-full container mx-auto flex items-center justify-center mt-10">
       <form className="flex gap-10">

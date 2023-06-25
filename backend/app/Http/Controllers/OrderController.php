@@ -52,24 +52,26 @@ class OrderController extends BaseController
             return response()->json("User not found");
         }
 
-        $order = Orders::where("user_id", $user->id)->first();
-        if (!$order) {
-            return response()->json("Order not found for user");
+        $orders = Orders::all();
+
+        $result = [];
+        foreach($orders as $order) {
+            $comp_ids = Comps_in_order::where("order_id", $order->id)->pluck("computer_id");
+            $computers = Computers::whereIn("id", $comp_ids)->get();
+            $total_price = $order->delivery == 'pickup' ? 0 : $order->delivery_cost;
+
+            foreach($computers as $computer){
+                $total_price += $computer->price;
+            }
+
+            $result[] = [
+                "adres" => $order->adres,
+                "delivery" => $order->delivery,
+                "computers" => $computers,
+                "total_price" => $total_price
+            ];
         }
 
-        $comp_ids = Comps_in_order::where("order_id", $order->id)->pluck("computer_id");
-        $computers = Computers::whereIn("id", $comp_ids)->get();
-        $total_price = 0;
-        foreach($computers as $computer){
-            $total_price += $computer -> price;
-        }
-
-
-        return response()->json([
-            "adres" => $order->adres,
-            "delivery" => $order->delivery,
-            "computers" => $computers,
-            "total_price" => $total_price
-        ]);
+        return response()->json($result);
     }
 }

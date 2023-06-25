@@ -39,6 +39,7 @@ Route::prefix("computers") -> group( function () {
 Route::prefix("carts") -> group( function () {
     Route::post("add", [CartController::class, "addInCart"]);
     Route::get("show", [CartController::class, "showCart"]);
+    Route::delete("delete/{id}", [CartController::class, "deleteCart"]);
 });
 
 // Роуты компов для заказов

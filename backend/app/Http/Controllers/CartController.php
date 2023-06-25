@@ -39,25 +39,18 @@ class CartController extends BaseController
         $bearer = $request->header("authorization");
         $token = explode(" ", $bearer)[1];
         $user = User::all()->where("token", $token)->first();
+        if ($bearer != ''){
+            if($user != null){
+                $notes = Cart::find($id);
+                $notes-> delete();
 
-        if ($bearer != '') {
-          if ($user != null) {
-            $user_id = $user -> id;
-            $cart = Cart::all() -> where("user_id", $user_id);
-            $computer_ids = [];
+                return response() -> json(["deleted"
+                ]);
 
-            foreach ($cart as $item) {
-              $computer_ids[] = $item->computer_id;
-            }
+            }else{return response() -> json("User not found");}
 
-            $computers = Computers::whereIn("id", $computer_ids)->get();
-            return response() -> json($computers);
-          }else{
-            return response()->json("user not found");
-          }
-        }else{
-          return response()->json("token is empty");
-        }
+        }else{return response() -> json("token is empty");}
+
 
     }
 

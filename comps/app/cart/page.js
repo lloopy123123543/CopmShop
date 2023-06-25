@@ -73,6 +73,30 @@ export default function cart() {
         console.log('Failed: ' + error.message);
       }
     }
+    async function deleteCart(e){
+      let sus = document.getElementById(e.target.id)
+      let idishnik = e.target.id
+      sus.style.display = "none";
+
+
+
+        fetch(`http://localhost:8000/api/carts/delete/${idishnik}`,{
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            
+          })
+          .catch(error => console.log('Failed: ' + error.message));
+
+
+
+
+    }
       
 
 
@@ -82,7 +106,7 @@ export default function cart() {
     <div className="container w-full mx-auto grid grid-cols-3 gap-10">
       {!!Cart ? Cart.map((comp) => {
         return (
-          <div className="" key={comp.id}>
+          <div className="" key={comp.id} id={comp.id}>
             <div className="max-w-sm rounded overflow-hidden shadow-lg">
               {/* <img
                 className="w-full"
@@ -121,7 +145,9 @@ export default function cart() {
                 <p className="text-gray-700 text-base">
                     Стоимость: {comp.price} рублей
                 </p>
+                <div onClick={deleteCart} id={comp.id} className="bg-indigo-500 text-center mt-3 cursor-pointer px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Удалить</div>
               </div>
+
             </div>
           </div>
         );
@@ -131,7 +157,7 @@ export default function cart() {
       <form className="flex gap-10">
         <label>Адрес</label>
         <input ref={ADRES} className="border"></input>
-      <div onClick={order} className="bg-indigo-500 px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Заказать все</div>
+      <div onClick={order} className="bg-indigo-500 px-3 py-1 rounded cursor-pointer text-white hover:bg-indigo-300 hover:text-black">Заказать все</div>
       </form>
     </div>
     </div>

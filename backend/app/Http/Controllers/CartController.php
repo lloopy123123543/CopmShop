@@ -35,6 +35,31 @@ class CartController extends BaseController
             }else{return response()->json("token is empty");}
         }
     }
+    public function deleteCart(Request $request, $id){
+        $bearer = $request->header("authorization");
+        $token = explode(" ", $bearer)[1];
+        $user = User::all()->where("token", $token)->first();
+
+        if ($bearer != '') {
+          if ($user != null) {
+            $user_id = $user -> id;
+            $cart = Cart::all() -> where("user_id", $user_id);
+            $computer_ids = [];
+
+            foreach ($cart as $item) {
+              $computer_ids[] = $item->computer_id;
+            }
+
+            $computers = Computers::whereIn("id", $computer_ids)->get();
+            return response() -> json($computers);
+          }else{
+            return response()->json("user not found");
+          }
+        }else{
+          return response()->json("token is empty");
+        }
+
+    }
 
     public function showCart(Request $request){
         $bearer = $request->header("authorization");

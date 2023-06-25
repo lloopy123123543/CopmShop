@@ -18,7 +18,7 @@ export default function cart() {
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data.length)
+
             setCart(data)
           })
           .catch(error => console.log('Failed: ' + error.message));
@@ -26,58 +26,52 @@ export default function cart() {
 
     }, [])
 
-    function order(){
-      let FormData = {
+    async function order() {
+      let formData = {
         adres: ADRES.current.value,
-
       };
- 
-
-      // запрос на добавление заказа
-      fetch('http://localhost:8000/api/orders/add',{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-        body: JSON.stringify(FormData),
-      })
-      .then(response => response.json())
-      .then(data => {
-        ID.current = data.id
-        console.log(ID.current)
-
-      })
-      .catch(error => console.log('Failed: ' + error.message));
-
-
-// Запрос на добавление компьютеров из заказа в таблицу
-
-let FormID = {
-  computer_id: 2,
-  order_id: ID.current,
-};
-      for (let i = 0; i < Cart.length; i++) {
-        fetch('http://localhost:8000/api/comps_order/add',{
+    
+      try {
+        // Send request to create order
+        const response = await fetch('http://localhost:8000/api/orders/add',{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
-          body: JSON.stringify(FormID),
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.length)
-        })
-        .catch(error => console.log('Failed: ' + error.message));
+          body: JSON.stringify(formData),
+        });
+    
+        const data = await response.json();
+        // Get the order id
+        const orderId = data.id;
+        console.log(orderId);
+    
+        // Send request to add computers to the order
+        for (let i = 0; i <Cart.length; i++) {
+          const formId = {
+            computer_id: Cart[i].id,
+            order_id: orderId,
+          };
+    
+          const response2 = await fetch('http://localhost:8000/api/comps_order/add',{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(formId),
+          });
+          const data2 = await response2.json();
+          console.log(data2);
+          if(i == 1) {
+            alert("Заказано")
+          }
+
+        }
+      } catch (error) {
+        console.log('Failed: ' + error.message);
       }
-
-
-
-
-
-
     }
       
 

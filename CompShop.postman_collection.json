@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "1f334bb7-80da-42ab-b282-8de8aae46cf2",
+		"name": "CompShop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ComputerController",
+			"item": [
+				{
+					"name": "Create Computer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "b9dcda99f6ee3413fb733fb882a04c2e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cpu",
+									"value": "intel core 2 duo",
+									"type": "default"
+								},
+								{
+									"key": "gpu",
+									"value": "gtx380",
+									"type": "default"
+								},
+								{
+									"key": "ram",
+									"value": "1gb",
+									"type": "default"
+								},
+								{
+									"key": "motherboard",
+									"value": "HUANANZI",
+									"type": "default"
+								},
+								{
+									"key": "box",
+									"value": "HUY",
+									"type": "default"
+								},
+								{
+									"key": "powerblock",
+									"value": "KSAS",
+									"type": "default"
+								},
+								{
+									"key": "disk",
+									"value": "25gb hd",
+									"type": "default"
+								},
+								{
+									"key": "cooling",
+									"value": "none",
+									"type": "default"
+								},
+								{
+									"key": "comp_image",
+									"type": "file",
+									"src": "/C:/Users/Игорь/Pictures/Roblox/RobloxScreenShot20230104_133114879.png"
+								},
+								{
+									"key": "price",
+									"value": "30000",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/computers/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"computers",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Computer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cdf0d3ed227c9c5110c1460caebf62ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cpu",
+									"value": "CPU",
+									"type": "default"
+								},
+								{
+									"key": "gpu",
+									"value": "GPU",
+									"type": "default"
+								},
+								{
+									"key": "ram",
+									"value": "RAM",
+									"type": "default"
+								},
+								{
+									"key": "motherboard",
+									"value": "MOTHERBOARD",
+									"type": "default"
+								},
+								{
+									"key": "box",
+									"value": "BOX",
+									"type": "default"
+								},
+								{
+									"key": "powerblock",
+									"value": "POWERBLOCK",
+									"type": "default"
+								},
+								{
+									"key": "disk",
+									"value": "DISK",
+									"type": "default"
+								},
+								{
+									"key": "cooling",
+									"value": "COOLING",
+									"type": "default"
+								},
+								{
+									"key": "comp_image",
+									"type": "file",
+									"src": "/C:/Users/Игорь/Pictures/Roblox/RobloxScreenShot20230104_133114879.png"
+								},
+								{
+									"key": "price",
+									"value": "300",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/computers/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"computers",
+								"show"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart controller",
+			"item": [
+				{
+					"name": "Add in cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "e2d55789791b5360fce6141c368b4f4b",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "computer_id",
+									"value": "2",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/carts/add/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"carts",
+								"add",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Cart",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cdf0d3ed227c9c5110c1460caebf62ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "computer_id",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/carts/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"carts",
+								"show"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "58bede31ee3daddc1681121af56cad04",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "computer_id",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/carts/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"carts",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CompsInOrder",
+			"item": [
+				{
+					"name": "Add in CompsOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "c01567ff7390f745147c60ecfafca011",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "computer_id",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "order_id",
+									"value": "1",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/comps_order/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comps_order",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Cart",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cdf0d3ed227c9c5110c1460caebf62ed",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "computer_id",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/carts/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"carts",
+								"show"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrderController",
+			"item": [
+				{
+					"name": "create order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "b2896b1d3d254e40176e08d2c414c680",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "adres",
+									"value": "Коломенская 7",
+									"type": "default"
+								},
+								{
+									"key": "delivery",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "total_price",
+									"value": "9000",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/orders/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"orders",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowOrder",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "b2896b1d3d254e40176e08d2c414c680",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "adres",
+									"value": "Коломенская 7",
+									"type": "default"
+								},
+								{
+									"key": "delivery",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "9000",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/orders/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"orders",
+								"show"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "admin",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "admin",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "default"
+						},
+						{
+							"key": "email",
+							"value": "lloopy123123543@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "phone",
+							"value": "89323358553",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

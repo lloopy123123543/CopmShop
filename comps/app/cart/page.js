@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 
 export default function cart() {
     const [Cart, setCart] = useState([])
+    const ID = useRef()
+
+
     const ADRES = useRef()
     useEffect(() => {
 
@@ -24,19 +27,56 @@ export default function cart() {
     }, [])
 
     function order(){
-      fetch('http://localhost:8000/api/carts/show',{
-        method: 'GET',
+      let FormData = {
+        adres: ADRES.current.value,
+
+      };
+ 
+
+      // запрос на добавление заказа
+      fetch('http://localhost:8000/api/orders/add',{
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
+        body: JSON.stringify(FormData),
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data.length)
-        setCart(data)
+        ID.current = data.id
+        console.log(ID.current)
+
       })
       .catch(error => console.log('Failed: ' + error.message));
+
+
+// Запрос на добавление компьютеров из заказа в таблицу
+
+let FormID = {
+  computer_id: 2,
+  order_id: ID.current,
+};
+      for (let i = 0; i < Cart.length; i++) {
+        fetch('http://localhost:8000/api/comps_order/add',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          body: JSON.stringify(FormID),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.length)
+        })
+        .catch(error => console.log('Failed: ' + error.message));
+      }
+
+
+
+
+
 
     }
       
@@ -97,7 +137,7 @@ export default function cart() {
       <form className="flex gap-10">
         <label>Адрес</label>
         <input ref={ADRES} className="border"></input>
-      <button className="bg-indigo-500 px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Заказать все</button>
+      <div onClick={order} className="bg-indigo-500 px-3 py-1 rounded text-white hover:bg-indigo-300 hover:text-black">Заказать все</div>
       </form>
     </div>
     </div>

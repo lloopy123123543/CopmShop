@@ -33,7 +33,7 @@ class OrderController extends BaseController
                     $order -> delivery = 1;
                     $order -> save();
 
-                    return response() -> json("success");
+                    return response() -> json(["id" => $order->id]);
                 }else{return response()->json("user not found");}
             }else{return response()->json("token is empty");}
         }
